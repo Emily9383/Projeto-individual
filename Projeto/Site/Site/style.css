@@ -1,0 +1,477 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    /* --border: 0.1rem solid  */
+    font-size: 20px;
+    font-family: 'Pixelify Sans', sans-serif;
+    
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: 0.2s linear;
+    cursor: url('152330.png'), auto;
+}
+
+body {
+    width: 100%;
+    /* Remova o height: 70vh daqui */
+    background-color: #FFF8B5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    min-height: 100vh; /* Garante que o site tenha pelo menos a altura da tela */
+}
+
+.main {
+    width: 100%;           /* Ocupa exatamente a largura da tela */
+    min-height: 100vh;      /* Ocupa pelo menos a altura da tela inteira */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 100px;
+    
+    /* Configuração de fundo para não cortar */
+    background-image: url('stardew-valley.jpg');
+    background-size: cover;          /* Preenche a área sem esticar demais */
+    background-position: center;     /* Centraliza a imagem */
+    background-repeat: no-repeat;    /* Evita que a imagem se repita */
+}
+
+ 
+
+  .header {
+    position: fixed;
+    height: 75px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Aumente o z-index para garantir que ele fique sempre por cima */
+    background-color: rgba(0, 48, 137, 0.7);
+    box-shadow: 0 10px 10px 5px rgba(0, 48, 137, 0.7); 
+    backdrop-filter: blur(6px)
+    
+}
+
+  .header section {
+    display: flex;
+    justify-content: space-between; /* Empurra os filhos para as extremidades */
+    align-items: center;            /* Alinha verticalmente no centro */
+    padding: 1.5rem 50px;
+    
+  }
+
+  .logo {
+    display: flex;         /* Ativa o alinhamento lado a lado */
+    align-items: center;   /* Alinha verticalmente no centro */
+    margin-top: -8px;
+    gap: 10px;             /* Cria um espaço entre a imagem e o texto */
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: white;          /* Define a cor do texto */
+    
+}
+
+.logo img {
+    width: 40px;           /* Defina um tamanho fixo para a estrela */
+    height: auto;
+    cursor: url('cursor-botao.png'), auto;
+}
+
+h1{
+    font-size: 18px;
+    cursor: url('cursor-botao.png'), auto;
+}
+
+.navbar a{
+    
+    margin: 0 1rem;
+    font-size: 18px;
+    color: white;
+    cursor: url('cursor-botao.png'), auto;
+
+    
+}
+
+.navbar a img {
+    margin-right: 10px; /* Adiciona espaço apenas à direita da imagem */
+}
+
+.navbar a:hover{
+    display: inline-block;
+    vertical-align: middle; /* Mantém o alinhamento vertical fixo */
+    transform: 0.2s linear;
+}
+
+.img {
+    width: 30%;
+    max-width: 800px;
+    margin-top: 160px;
+    margin-left: auto;   /* Corrige o deslocamento */
+    margin-right: auto;  /* Corrige o deslocamento */
+    display: block;
+}
+
+.botao{
+    display: flex;
+    margin-top: 180px;
+    gap: 150px;
+    
+    
+}
+
+.calculadora img, 
+.entrar img {
+    display: block;          /* Remove espaço branco inferior */
+    image-rendering: pixelated; /* Mantém o aspecto de pixel art */
+    cursor: url('cursor-botao.png'), auto;
+    
+}
+
+.calculadora img:hover, .entrar img:hover{
+  transform: scale(1.05);
+}
+
+.desfoque{
+   margin-top: -100px;
+   width: 2000px;
+}
+
+.Vale{
+    margin-top: 30px; 
+    margin-bottom: 30px;
+    background-color: #FFF8B5;
+    display: flex;
+    justify-content: center;
+}
+
+.nome{
+    font-size: 40px;
+}
+
+.texto{
+    margin-top: 0px;
+    max-width: 1400px;
+    line-height: 1.6;      /* Melhora a leitura do texto */
+    font-size: 22px;
+    text-align: center;
+}
+.texto p{
+    margin: 20px;
+}
+
+.p{
+    font-size: 15px;
+}
+
+.madeira{
+    width: 2000px;
+    height: 15px;
+}
+.about {
+    width: 1905px;
+    height: 570px;
+    margin-top: 100px;       /* Cria o "espaço" entre a seção principal e o Sobre */
+    background-color: #3A3A3A; /* Opcional: mantém a cor do fundo do Stardew */
+    margin: 0;
+    display: flex;
+    
+}
+
+.conteudo {
+    margin-top: 40px;
+    max-width: 800px;
+    margin-left: 70px;
+    line-height: 1.6;      /* Melhora a leitura do texto */
+    font-size: 22px;
+}
+
+.titulo{
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+/* Opcional: estilização para a imagem dentro do Sobre */
+.about img {
+    margin: 0;
+    max-width: 100%;
+    display: block;
+    margin-left: -10px;
+    margin-right: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    height: 140px;
+}
+
+.video-container {
+  position: absolute;
+  margin-top: -450px;
+  margin-left: 980px;
+}
+
+/* .borda{
+    pointer-events: none;
+    position: absolute;
+    
+} */
+
+.estacoes{
+    background-color:#0D1B09 ;
+    width: 2000px;
+    height: 500px;
+    text-align: center;
+}
+
+.ordem{
+    margin: 85px;
+    font-size: 36px;
+    color: white;
+    
+}
+
+.rendimento{
+   margin: 20px;
+   text-shadow: 1px 1px 2px black;  
+}
+
+.icon{
+    display: flex;
+    justify-content:center;  
+    margin-top: 50px;
+    
+}
+
+.primavera{
+    margin-right: 20px;
+    cursor: url('cursor-botao.png'), auto;
+   
+}
+
+.verao{
+    margin-right: 20px;
+    cursor: url('cursor-botao.png'), auto;
+}
+
+.outono{
+    cursor: url('cursor-botao.png'), auto;
+}
+
+.btn-img{
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-img img{
+  width: 195px; /* Ajuste o tamanho */
+  transition: transform 0.2s;
+}
+
+/* Efeito de pressionado */
+.btn-img:active img{
+  transform: scale(0.95); /* Reduz levemente ao clicar */
+}
+
+.bnt-verao{
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;  
+}
+
+.bnt-verao img{
+  width: 150px; /* Ajuste o tamanho */
+  transition: transform 0.2s;
+}
+
+.bnt-verao:active img{
+  transform: scale(0.95);
+}
+
+.btn-outono{
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-outono img{
+  width: 165px; /* Ajuste o tamanho */
+  transition: transform 0.2s;
+}
+
+.btn-outono:active img{
+  transform: scale(0.95);
+}
+
+
+
+
+.ferramentas{
+    background-color:#071402;
+    width: 2000px;
+    height: 1100px;
+    text-align: center;
+
+}
+
+.ferramentas-nome{
+    margin: 80px;
+}
+
+.calculadora-bloco{
+    margin-right: 20px;
+}
+
+.plantacao{
+     margin-right: 20px;
+}
+
+.lucro{
+     margin-right: 20px;
+}
+
+.mudar{
+   align-items: center;
+   margin-left: 317px;
+}
+
+.ferramenta-img{
+   
+    margin-top: 50px;
+    display: block;
+    
+}
+
+.semente{
+    position: absolute;
+    margin-top: -90px;
+    margin-left: -350px;
+    align-items: center;
+}
+
+.disponivel{
+    background-color:#171002;
+    width: 2000px;
+    height: 555px;
+    text-align: center;
+}
+
+.disponivel1{
+    margin-top: 55px;
+    margin-bottom: 20px;
+}
+
+.disponivel h2{
+    font-size: 40px;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.steam, .nitendo, .playstation, .xbox, .mobile {
+    margin-right: 15px;
+    transition: transform 0.3s ease; /* A transição vai direto na classe */
+    cursor: url('cursor-botao.png'), auto;
+}
+
+/* 2. O efeito de hover direto na classe da imagem */
+.steam:hover, .nitendo:hover, .playstation:hover, .xbox:hover, .mobile:hover {
+    transform: scale(1.1);
+}
+
+.footer{
+    background: linear-gradient(#150D02, black);
+    width: 2000px;
+    height: 240px;
+    text-align: center;
+}
+
+body .main-fundo{
+    width: 100%;
+    min-height: 2042px;
+    background: url(fundo-cal.png);
+    background-size: contain; 
+    background-repeat: no-repeat;
+    display: block;
+
+}
+
+.itens{
+    margin-top: 150px;
+    position: absolute;
+    text-align: center;
+}
+
+.itens p{
+    margin: 20px;
+}
+
+.mudar-cal img{
+    margin-right:10px;
+    transition: transform 0.3s ease;
+    cursor: url('cursor-botao.png'), auto;
+}
+
+.mudar-cal img:hover{
+    transform: scale(1.1);
+}
+
+.conf{
+    position: absolute;
+    margin-top: 420px;
+    margin-right: 1300px;
+    
+}
+
+.btn-cal img{
+    margin: 0;
+    position: absolute;
+    margin-top: -125px;
+    margin-left: 26px; 
+    cursor: url('cursor-botao.png'), auto;
+    transition: transform 0.2s;
+}
+
+.normal{
+    margin-right: 180px;
+    margin-bottom: 15px;
+}
+
+.ouro{
+    margin-right: 180px;
+}
+
+.normal:active img, .ouro:active img, .prata:active img, .iridium:active img{
+    transform: scale(0.95);
+}
+
+.melhor{
+    position: absolute;
+    
+}
+
+.estrela-rank{
+    position: absolute;
+    margin-top: -423px;
+    margin-left: 725px;
+    z-index: 2;
+}
+
+.rank{
+    position: absolute;
+    margin-left: 700px;
+    margin-top: -445px;
+    z-index: 1;
+}
+
+
+
