@@ -62,8 +62,7 @@ body {
 
   .header section {
     display: flex;
-    justify-content: space-between; /* Empurra os filhos para as extremidades */
-    align-items: center;            /* Alinha verticalmente no centro */
+    justify-content: space-between;
     padding: 1.5rem 50px;
     
   }
@@ -90,22 +89,22 @@ h1{
 }
 
 .navbar a{
-    
+    text-decoration: none;
     margin: 0 1rem;
     font-size: 18px;
     color: white;
     cursor: url('../public/images/cursor-botao.png'), auto;
 }
 
-
 .navbar a img {
-    margin-right: 10px; /* Adiciona espaço apenas à direita da imagem */
+    margin-right: 14px; /* Adiciona espaço apenas à direita da imagem */
 }
 
 .navbar a:hover{
-    display: inline-block;
-    vertical-align: middle; /* Mantém o alinhamento vertical fixo */
-    transform: 0.2s linear;
+    border: 2px solid rgb(255, 255, 255);
+    padding: 0.2rem;
+    
+    
 }
 
 .img {
@@ -425,10 +424,11 @@ body .main-fundo{
     top: 0;
     left: 0;
     width: 100%;
+    display: none; /* esconde todas */
 }
 
 .slider.active {
-    display: block; /* Só mostra a ativa */
+    display: block; /* mostra só a ativa */
 }
 
 #prev-button, #next-button{

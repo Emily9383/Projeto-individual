@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="src/cadastro.css">
 </head>
 
 <body class="main-cadastro">
@@ -19,10 +19,9 @@
 
                 <nav class="navbar">
                     <a href="index.html"><img src="./public/images/inicio.png" alt="casa" width="20px">Inicio</a>
-                    <a href="#about"><img src="./public/images/galinha.png" alt="galinha" width="20px">Sobre</a>
                     <a href="calculadora.html"><img src="./public/images/moeda.png" alt="dinheiro"
                             width="20px">Calculadora</a>
-                    <a href="#minas"><img src="./public/images/picareta.png" alt="picareta" width="20px"> Minas</a>
+                    <a href="minas.html"><img src="./public/images/picareta.png" alt="picareta" width="20px"> Minas</a>
                     <a href="entrar.html"><img src="./public/images/estrela(entrar).png" alt="login"
                             width="20px">Entrar</a>
                     <a href="cadastro.html"><img src="./public/images/The_Player_Icon.png" alt="folha"
@@ -32,27 +31,103 @@
         </header>
 
         <div class="cadastro-box">
+            <img src="public/images/folha-cadastro.png" alt="folha">
             <h2>Cadastro</h2>
 
             <label>Usuário</label>
-            <input type="text">
-
+            <input type="text" id="usuario">
+            <span id="erro_usuario"></span>
             <label>E-mail</label>
-            <input type="email">
-
+            <input type="email" id="email">
+            <span id="erro_email"></span>
             <label>Senha</label>
-            <input type="password">
+            <input type="password" id="senha">
+            <span id="erro_senha"></span>
 
-            <label>Repetir Senha</label>
-            <input type="password">
+            <span id="mensagem_sucesso"></span>
+            <button
+                onclick="validarFormulario(usuario, email, senha, erro_usuario, erro_email, erro_senha)">Cadastrar</button>
 
-            <button>Cadastrar</button>
-
-            <p>Já tem uma conta? <a href="#">Entrar</a></p>
+            <p>Já tem uma conta? <a href="entrar.html">Entrar</a></p>
         </div>
     </div>
 
+    <script>
 
+        function validarFormulario(usuario, email, senha, erro_usuario, erro_email, erro_senha) {
+
+
+            let valorusuario = usuario.value;
+            let valoremail = email.value;
+            let valorsenha = senha.value;
+
+            let temMaiuscula = /[A-Z]/.test(valorsenha);
+
+
+            let temEspecial = /[^A-Za-z0-9]/.test(valorsenha);
+
+
+            erro_usuario.innerHTML = "";
+            erro_email.innerHTML = "";
+            erro_senha.innerHTML = "";
+            mensagem_sucesso.innerHTML = "";
+
+
+            let valido = true;
+
+
+            if (valorusuario == "") {
+                erro_usuario.innerHTML = "Preencha o usuário";
+                erro_usuario.style.color = "red";
+                valido = false;
+            }
+
+
+            if (valoremail == "") {
+                erro_email.innerHTML = "Preencha o email";
+                erro_email.style.color = "red";
+                valido = false;
+            }
+            else if (!valoremail.includes("@")) {
+                erro_email.innerHTML = "Precisa do @";
+                erro_email.style.color = "red";
+                valido = false;
+            }
+
+            else if (!valoremail.includes(".com")) {
+                erro_email.innerHTML = "Precisa do .com";
+                erro_email.style.color = "red";
+                valido = false;
+            }
+
+            if (valorsenha == "") {
+                erro_senha.innerHTML = "Preencha a senha";
+                erro_senha.style.color = "red";
+                valido = false;
+
+            } else if (valorsenha.length < 9) {
+                erro_senha.innerHTML = "Mínimo 9 caracteres";
+                erro_senha.style.color = "red";
+                valido = false;
+
+            } else if (!temMaiuscula) {
+                erro_senha.innerHTML = "Precisa de letra maiúscula";
+                erro_senha.style.color = "red";
+                valido = false;
+
+            } else if (!temEspecial) {
+                erro_senha.innerHTML = "Precisa de caractere especial";
+                erro_senha.style.color = "red";
+                valido = false;
+            }
+
+
+            if (valido) {
+                alert("Cadastro realizado!");
+                window.location.href = "entrar.html"
+            }
+        }
+    </script>
 </body>
 
 </html>

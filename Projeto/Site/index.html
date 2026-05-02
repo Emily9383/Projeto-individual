@@ -24,7 +24,7 @@
                     <a href="#about"><img src="./public/images/galinha.png" alt="galinha" width="20px">Sobre</a>
                     <a href="calculadora.html"><img src="./public/images/moeda.png" alt="dinheiro"
                             width="20px">Calculadora</a>
-                    <a href="#minas"><img src="./public/images/picareta.png" alt="picareta" width="20px"> Minas</a>
+                    <a href="minas.html"><img src="./public/images/picareta.png" alt="picareta" width="20px"> Minas</a>
                     <a href="entrar.html"><img src="./public/images/estrela(entrar).png" alt="login" width="20px">Entrar</a>
                     <a href="cadastro.html"><img src="./public/images/The_Player_Icon.png" alt="folha" width="20px">Cadastro</a>
                 </nav>
@@ -51,7 +51,7 @@
             <p class="p" style="color: #787878;">
                 〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰〰</p>
             <section class="container-slide">
-                <button id="prev-button"><img src="./public/images/seta-tras.png" alt="prev-button"></button>
+                <button onclick="trocarSlide(-1)" id="prev-button"><img src="./public/images/seta-tras.png" alt="prev-button"></button>
                 <div class="container-images">
                     <img src="./public/images/img1.png" alt="img1" class="slider">
                     <img src="./public/images/StardewValley_5.png" alt="img1" class="slider">
@@ -61,7 +61,7 @@
                     <img src="./public/images/slide6.png" alt="img1" class="slider">
                     <img src="./public/images/slide7.png" alt="img1" class="slider">
                 </div>
-                <button id="next-button"><img src="./public/images/seta-frente.png" alt="next-button"></button>
+                <button onclick="trocarSlide(1)" id="next-button"><img src="./public/images/seta-frente.png" alt="next-button"></button>
             </section>
         </div>
     </section>
@@ -150,3 +150,22 @@
 </body>
 
 </html>
+<script>
+index = 0; // começa no primeiro slide (posição 0)
+
+function trocarSlide(direcao) { // função que troca a imagem (1 = próxima, -1 = anterior)
+    slides = document.querySelectorAll('.slider'); // pega todas as imagens do carrossel
+
+    slides[index].classList.remove('active'); // remove a imagem que está aparecendo
+
+    index += direcao; // muda o índice (vai pra frente ou pra trás)
+
+    if (index >= slides.length) index = 0; // se passar da última, volta pro começo
+    if (index < 0) index = slides.length - 1; // se voltar antes da primeira, vai pra última
+
+    slides[index].classList.add('active'); // mostra a nova imagem
+}
+
+document.querySelectorAll('.slider')[0].classList.add('active'); 
+// ativa a primeira imagem quando a página carrega
+</script>
