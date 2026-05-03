@@ -8,6 +8,43 @@ body {
   padding: 20px;
 }
 
+/* TOPO */
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* AREA DO USUARIO */
+.user-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.perfil-box img{
+    width: 30px;
+}
+
+.perfil-box span {
+  position: relative;
+  top: -6px;
+}
+
+/* PERFIL MENOR */
+.user-area .perfil-box {
+  margin: 10px;
+  padding: 8px;
+  font-size: 10px;
+}
+
+/* BOTÃO SAIR PEQUENO */
+.user-area .btn-sair {
+  padding: 8px;
+}
+
 /* CAIXA PRINCIPAL */
 .dashboard {
   background: #f5deb3;
@@ -75,4 +112,64 @@ h1 {
 p { font-size: 10px; 
 }
 h2 { font-size: 14px; 
+}
+
+/* LAYOUT */
+.layout {
+  display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #f4f6f9;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* PERFIL */
+.perfil-box {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* MENU */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
+  background: #e0e4ea;
+}
+
+/* ATIVO */
+.ativo {
+  background: #dfe4ff;
+  border-left: 4px solid #5c6bc0;
+}
+
+/* BOTÃO SAIR */
+.btn-sair {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  font-size: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  cursor: url('../public/images/cursor-botao.png'), auto;
+  font-family: 'Press Start 2P', cursive;
 }
