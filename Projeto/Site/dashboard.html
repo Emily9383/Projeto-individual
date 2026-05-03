@@ -1,11 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<title>Dashboard Stardew</title>
+
+<link rel="stylesheet" href="src/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
+
 <body>
-    
+
+<div class="dashboard">
+
+<h1>🌾 Seu Resultado</h1>
+
+<div class="grid">
+
+<!-- ESQUERDA -->
+<div>
+
+  <div class="cards">
+
+    <div class="card verde">
+      <p>🌱 Perfil</p>
+      <h2>Fazendeiro</h2>
+    </div>
+
+    <div class="card azul">
+      <p>📊 Pontuação</p>
+      <h2>80%</h2>
+    </div>
+
+    <div class="card amarelo">
+      <p>✔️ Acertos</p>
+      <h2>8</h2>
+    </div>
+
+    <div class="card vermelho">
+      <p>❌ Erros</p>
+      <h2>2</h2>
+    </div>
+
+  </div>
+
+  <div class="grafico">
+    <canvas id="grafico"></canvas>
+  </div>
+
+</div>
+
+<!-- DIREITA -->
+<div class="alertas">
+
+  <h3>📢 Dicas da Fazenda</h3>
+
+  <div class="alerta">🌱 Regue suas plantações cedo.</div>
+  <div class="alerta">💰 Venda colheitas da estação.</div>
+  <div class="alerta">🐔 Animais felizes produzem mais</div>
+  <div class="alerta">⛏️ Economize energia para mineração.</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+new Chart(document.getElementById("grafico"), {
+  type: "bar",
+  data: {
+    labels: ["Acertos", "Erros"],
+    datasets: [{
+      data: [8, 2],
+      backgroundColor: ["#52b788", "#ff4d4d"]
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false }
+    }
+  }
+});
+
+</script>
+
 </body>
 </html>

@@ -16,16 +16,16 @@
     text-decoration: none;
     transition: 0.2s linear;
     cursor: url('../public/images/152330.png'), auto;
+    font-family: "Press Start 2P", system-ui;
+
 }
 
 body {
-    background: url(../public/images/fundo-formulario.png);
+    background-color: #080a0c;
     background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-
+    display: block; /* Mude de flex para block */
+    min-height: 130vh;
+    padding-top: 100px; /* Dá espaço para o header que é fixed */
 }
 
  .header {
@@ -88,94 +88,92 @@ h1{
     border-color: rgb(255, 255, 255); /* Apenas muda a cor, o tamanho já existe */
 }
 
-
-/* CAIXA */
-.cadastro-box {
-    background: #f5deb3;
-    /* cor madeira */
-    padding: 44px;
-    width: 360px;
-    border: 4px solid #5c3a21;
-    /* borda pixel */
-    box-shadow: 6px 6px 0 #3b2616;
-    position: relative;
-
-}
-
-/* TÍTULO */
-.cadastro-box h2 {
-    margin-top: 29px;
-    text-align: center;
-    margin-bottom: 0px;
-    color: #236111;
-    font-size: 20px;
-}
-
-/* LABEL */
-.cadastro-box label {
-    font-size: 10px;
-    display: block;
-    margin-top: 25px;
-}
-
-.cadastro-box img {
-    position: absolute;
-    width: 80px;
-    margin-top: -40px;
-    margin-left: 135px;
-}
-
-/* INPUT */
-.cadastro-box input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 3px solid #6C0000;
-    background: #fff8dc;
-    font-size: 10px;
-    cursor: url('../public/images/cursor-botao.png'), auto;
-
-}
-
-/* BOTÃO */
-.cadastro-box button {
-    width: 104%;
+.guia img{
+    width: 40%;
+    height: auto;
     margin-top: 20px;
-    padding: 12px;
-    background: #ff710b;
-    font-size: 15px;
-    color: white;
-    border: 3px solid #3b2616;
-    box-shadow: 4px 4px 0 #3b2616;
-    font-family: "Press Start 2P", system-ui;
-    cursor: url('../public/images/cursor-botao.png'), auto;
+    margin-bottom: 10px;
 }
 
-
-.cadastro-box button:active {
-    transform: translate(4px, 4px);
-    box-shadow: none;
-    background-color: rgb(25, 165, 0);
-    font-family: "Press Start 2P", system-ui;
+.guia {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Valor normal */
 }
 
-.cadastro-box a {
-    color: #002aa8;
-    text-decoration: none;
-    font-size: 10px;
-    cursor: url('../public/images/cursor-botao.png'), auto;
-}
-
-.cadastro-box p {
-    font-size: 10px;
-    margin-top: 15px;
+.mensagem h1 {
+    /* Remova o position relative e o bottom: 600px */
     text-align: center;
+    color: #645408;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
-.cadastro-box a:hover {
-    color: crimson;
+.container-1 {
+    display: flex;
+    flex-direction: column; /* FORÇA os itens a ficarem um embaixo do outro */
+    align-items: center;    /* Centraliza os itens horizontalmente */
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
 }
 
-.cadastro-box span{
-    font-size: 10px;
+/* Esconde todos os conteúdos por padrão */
+.tab-content {
+    /* O container precisa disso para esconder o que sobrar da imagem 
+       e não criar uma barra de rolagem horizontal bizarra */
+    overflow: hidden; 
+    width: 100%;
+    display: none; /* Só aparece quando tiver .active */
 }
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content img {
+    display: block;
+    width: 85%;          /* A largura gigante que você quer */
+    height: auto;
+    margin-top: 50px;
+    position: relative;
+    left: 50%;            /* Joga o início da imagem para o meio do container */
+    transform: translateX(-50%); /* Puxa a imagem de volta metade do próprio tamanho dela */
+}
+/* Estilo do botão estilo Stardew */
+.tab-btn, .tab-btn2, .tab-btn3, .tab-btn4, .tab-btn5{
+    background: #2a1a12;
+    color: #9c6c44;
+    border: 4px solid #442817;
+    padding: 10px 20px;
+    cursor: url('../public/images/cursor-botao.png'), auto;
+}
+
+/* Quando o botão está selecionado ou com mouse em cima */
+
+.tab-btn.active, .tab-btn:hover {
+    border-color: #e0b475;
+    color: #e0b475;
+}
+
+.tab-btn2.active, .tab-btn2:hover {
+    border-color: #1a89ff;
+    color: #1a89ff;
+}
+
+.tab-btn3.active, .tab-btn3:hover {
+    border-color: #ca3300;
+    color: #ca3300;
+}
+
+.tab-btn4.active, .tab-btn4:hover {
+    border-color: #fff200;
+    color: #fff200;
+}
+
+.tab-btn5.active, .tab-btn5:hover {
+    border-color: #7700ff;
+    color: #7700ff;
+}
+
+

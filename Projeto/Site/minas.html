@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/minas.css">
+</head>
+
+<body>
+    <div class="main">
+        <header class="header">
+            <section>
+                <a href="#" class="logo">
+                    <img src="./public/images/estrela.png" alt="logo">
+                    <h1 style="color: #FFF8B5;">Stardew <br><span style="color: white;">Prosperity</span></h1>
+                </a>
+
+                <nav class="navbar">
+                    <a href="index.html"><img src="./public/images/inicio.png" alt="casa" width="20px">Inicio</a>
+                    <a href="calculadora.html"><img src="./public/images/moeda.png" alt="dinheiro"
+                            width="20px">Calculadora</a>
+                    <a href="minas.html"><img src="./public/images/picareta.png" alt="picareta" width="20px"> Minas</a>
+                    <a href="entrar.html"><img src="./public/images/estrela(entrar).png" alt="login"
+                            width="20px">Entrar</a>
+                    <a href="cadastro.html"><img src="./public/images/The_Player_Icon.png" alt="folha"
+                            width="20px">Cadastro</a>
+                </nav>
+            </section>
+        </header>
+        <div class="guia">
+            <img src="public/images/minas.png">
+        </div>
+        <div class="mensagem">
+            <h1>120 andares de desafios + Skull Cavern infinita — tudo que você precisa saber</h1>
+        </div>
+        <div class="container-1">
+            <div class="tabs-container">
+                <button class="tab-btn" onclick="trocarAba(event, 'andar1')">⛏️ Andares 1-39</button>
+                <button class="tab-btn2" onclick="trocarAba(event, 'andar40')"> ❄️ Andares 40-79</button>
+                <button class="tab-btn3" onclick="trocarAba(event, 'andar80')"> 🌋 Andares 80-119</button>
+                <button class="tab-btn4" onclick="trocarAba(event, 'andar120')"> 🏆 Andar 120</button>
+                <button class="tab-btn5" onclick="trocarAba(event, 'caveira')"> 💀 Caverna da Caveira</button>
+            </div>
+            <div class="img-guia">
+                <div id="andar1" class="tab-content active">
+                    <img src="public/images/andar 1.png" alt="1">
+                </div>
+
+                <div id="andar40" class="tab-content">
+                    <img src="public/images/gelo.png" alt="2-andar">
+                </div>
+
+                <div id="andar80" class="tab-content">
+                    <img src="public/images/vulcao.png" alt="3-andar">
+                </div>
+
+                <div id="andar120" class="tab-content">
+                    <img src="public/images/final-andar.png" alt="4-andar">
+                </div>
+
+                <div id="caveira" class="tab-content">
+                    <img src="public/images/caveira.png" alt="4-andar">
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
+<script>
+function trocarAba(event, idAlvo) {
+
+     // PEGAR TODAS AS ABAS (conteúdos)
+    let abas = document.querySelectorAll('.tab-content');
+    // PEGAR TODOS OS BOTÕES
+    let botoes = document.querySelectorAll('.tabs-container button');
+
+    // percorre todas as abas
+    for (let i = 0; i < abas.length; i++) {
+         // verifica se essa aba é a que deve aparecer
+        if (abas[i].id === idAlvo) {
+             // mostra a aba (adiciona a classe active)
+            abas[i].classList.add('active');
+        } else {
+            // esconde a aba (remove a classe active)
+            abas[i].classList.remove('active');
+        }
+
+    }
+
+     // percorre todos os botões
+    for (let i = 0; i < botoes.length; i++) {
+        // verifica se esse botão foi o clicado
+        if (botoes[i] === event.currentTarget) {
+            // destaca o botão clicado
+            botoes[i].classList.add('active');
+        } else {
+            // remove o destaque dos outros botões
+            botoes[i].classList.remove('active');
+        }
+    }
+}
+</script>

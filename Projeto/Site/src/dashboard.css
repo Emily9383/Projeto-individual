@@ -1,0 +1,78 @@
+@import url(https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap);
+
+/* FUNDO */
+body {
+  margin: 0;
+  background: linear-gradient(#87CEEB, #6dbf5f);
+  font-family: 'Press Start 2P', cursive;
+  padding: 20px;
+}
+
+/* CAIXA PRINCIPAL */
+.dashboard {
+  background: #f5deb3;
+  border: 6px solid #5c3a21;
+  box-shadow: 8px 8px 0 #3b2616;
+  padding: 20px;
+}
+
+/* TÍTULO */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.card {
+  background: #fff8dc;
+  border: 3px solid #5c3a21;
+  box-shadow: 4px 4px 0 #3b2616;
+  padding: 15px;
+}
+
+/* CORES */
+.verde { background: #caffbf; }
+.azul { background: #a0c4ff; }
+.vermelho { background: #ffadad; }
+.amarelo { background: #fdffb6; }
+
+/* GRAFICO */
+.grafico {
+  background: #fff8dc;
+  border: 3px solid #5c3a21;
+  box-shadow: 4px 4px 0 #3b2616;
+  padding: 15px;
+}
+
+/* ALERTAS */
+.alertas {
+  background: #fff8dc;
+  border: 3px solid #5c3a21;
+  padding: 15px;
+  font-size: 13px;
+}
+
+.alerta {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 2px solid #5c3a21;
+}
+
+/* TEXTO */
+p { font-size: 10px; 
+}
+h2 { font-size: 14px; 
+}
