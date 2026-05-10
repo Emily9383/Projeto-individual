@@ -537,4 +537,90 @@ body .main-fundo{
     min-height: 100vh; 
 }
 
+.main-fundo {
+    margin: 0;
+    padding: 0;
+    background-color: #1a110a; /* Fundo escuro padrão */
+    font-family: "Press Start 2P", system-ui;
+    font-size: 14px;
+}
+
+.container-principal {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 30px;
+}
+
+.card-calculadora {
+    background-color: rgba(26, 17, 10, 0.9);
+    border: 3px solid #5c3b21;
+    border-radius: 10px;
+    padding: 25px;
+    width: 100%;
+    max-width: 450px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.titulo-amarelo {
+    color: #FFF8B5;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.4;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+.input-group input {
+    background-color: #3d2818;
+    border: 1px solid #5c3b21;
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    outline: none;
+    font-family: "Press Start 2P", system-ui;
+    font-size:  9px;
+
+}
+
+.input-group input:focus {
+    border-color: #FFF8B5;
+}
+
+.btn-principal {
+    background-color: #FFF8B5;
+    color: #3d2818;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.3s;
+    font-family: "Press Start 2P", system-ui;
+    font-size: 13px;
+
+}
+
+.btn-principal:hover {
+    background-color: #fffce0;
+}
+
+.resultado-box {
+    margin-top: 20px;
+    min-height: 50px;
+    line-height: 2.2;
+}
+
 
