@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+
+    box-sizing: border-box;
+}
+
+body {
+    background-color: bisque;
+}
+
+.quiz-container {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    margin: 100px auto 0;
+    padding: 30px;
+}
+
+.quiz-container h1 {
+    font-family: "Press Start 2P", system-ui;
+    font-size: 27px;
+    font-weight: 25px;
+    color: rgb(233, 144, 11);
+    font-weight: 600;
+    padding: 10px;
+    border-bottom: 2px solid #ffbf00;
+}
+
+.quiz-container h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.quiz{
+    padding: 20px 0;
+}
+
+.bnt{
+   background-color: white;
+   color: black;
+   font-weight: 500;
+   width: 100%;
+   border: 1px solid #222;
+   padding: 10px;
+   margin: 10px 0;
+   text-align: left;
+   cursor: pointer;
+   transition: all 0.3s;
+}
+
+.bnt:hover{
+    background: #ffca58;
+}
+
+#next-btn{
+    background-color: #ffbe32;
+    color: #fff;
+    font-weight: 500;
+    width: 150px;
+    border: 0;
+    padding: 10px;
+    margin: 20px auto 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: none;
+}
+
+#next-btn:hover{
+    background-color: #b47b00;
+
+}

@@ -1,110 +1,139 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Stardew</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stardew Valley - Dashboard</title>
     <link rel="stylesheet" href="public/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
 
 <body>
 
-
-    <div class="dashboard">
-
-
-        <div class="topo">
-
-            <h1>🌾 Seu Resultado</h1>
-
-            <div class="user-area">
-                <div class="perfil-box">
-                    <img src="public/images/Abigail_Icon.png" alt="usuario"> <span id="nomeUsuario">Usuário</span>
-                </div>
-
-                <button class="btn-sair" onclick="sair()">Sair</button>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="profile-section">
+                <h3 id="username-display">Bem-vindo Usuário</h3>
             </div>
 
-        </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active">📊 Visão Geral</a>
+                <a href="quiz.html" class="menu-item">🎮 Refazer Quiz</a>
+                <a href="index.html" class="menu-item logout" onclick="logout()">🚪 Sair</a>
+            </nav>
+        </aside>
 
-        <div class="grid">
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Painel de Controle da Fazenda</h1>
+            </header>
 
-            <!-- ESQUERDA -->
-            <div>
-
-                <div class="cards">
-
-                    <div class="card verde">
-                        <p>🌱 Perfil</p>
-                        <h2>Fazendeiro</h2>
+            <section class="metrics-container" style="margin-bottom: 25px;">
+                <div class="detail-box" style="display: flex; align-items: center; gap: 20px; padding: 15px 25px;">
+                    <div class="metric-icon" style="font-size: 2.5rem;">🎮</div>
+                    <div>
+                        <h3 style="margin: 0; font-size: 0.9rem; text-transform: uppercase; color: #8c6d53; letter-spacing: 0.5px;">Total de Quizzes Realizados</h3>
+                        <p id="total-quizzes" style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: 600; color: #704c2d;">154</p>
                     </div>
-
-                    <div class="card azul">
-                        <p>📊 Pontuação</p>
-                        <h2>80%</h2>
-                    </div>
-
-                    <div class="card amarelo">
-                        <p>✔️ Acertos</p>
-                        <h2>8</h2>
-                    </div>
-
-                    <div class="card vermelho">
-                        <p>❌ Erros</p>
-                        <h2>2</h2>
-                    </div>
-
                 </div>
+            </section>
 
-                <div class="grafico">
-                    <canvas id="grafico"></canvas>
+            <section class="dashboard-details grid-two-columns">
+                <div class="detail-box">
+                    <h2>🏆 Personagens Mais Populares</h2>
+                    <p class="subtitle">Estatística global com base nas respostas dos usuários</p>
+
+                    <div class="chart-container" style="position: relative; height:380px; width:100%">
+                        <canvas id="quizChart"></canvas>
+                    </div>
                 </div>
-
-            </div>
-
-            <!-- DIREITA -->
-            <div class="alertas">
-
-                <h3>📢 Dicas da Fazenda</h3>
-
-                <div class="alerta">🌱 Regue suas plantações cedo.</div>
-                <div class="alerta">💰 Venda colheitas da estação.</div>
-                <div class="alerta">🐔 Animais felizes produzem mais</div>
-                <div class="alerta">⛏️ Economize energia para mineração.</div>
-            </div>
-
-        </div>
-
+            </section>
+        </main>
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dadosPersonagens = {
+                labels: [
+                    'Sebastian 🐸', 'Abigail 🔮', 'Leah 🎨', 'Sam 🎸', 
+                    'Haley 📸', 'Harvey 🩺', 'Alex 🏈', 'Elliott ✍️', 
+                    'Emily 💎', 'Maru 🚀', 'Penny 📚', 'Shane 🐔'
+                ],
+                votos: [18, 15, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2] 
+            };
 
-        new Chart(document.getElementById("grafico"), {
-            type: "bar",
-            data: {
-                labels: ["Acertos", "Erros"],
-                datasets: [{
-                    data: [8, 2],
-                    backgroundColor: ["#52b788", "#ff4d4d"]
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: { display: false }
+            const ctx = document.getElementById('quizChart').getContext('2d');
+
+            const meuGrafico = new Chart(ctx, {
+                type: 'bar', 
+                data: {
+                    labels: dadosPersonagens.labels,
+                    datasets: [{
+                        data: dadosPersonagens.votos,
+                        backgroundColor: [
+                            '#5c3d99', '#993d93', '#2d7a47', '#d1a124', 
+                            '#4da6ff', '#8c6d53', '#1e4620', '#b85c00', 
+                            '#ff4d94', '#7a297a', '#ff944d', '#2e5c8a'
+                        ],
+                        borderWidth: 0,
+                        borderRadius: 4 
+                    }]
+                },
+                options: {
+                    indexAxis: 'x', 
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false 
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return ` ${context.raw}% dos usuários`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false 
+                            },
+                            ticks: {
+                                color: '#4a3319', 
+                                maxRotation: 45, 
+                                minRotation: 45,
+                                font: {
+                                    family: 'Poppins',
+                                    weight: '600',
+                                    size: 11
+                                }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false 
+                            },
+                            ticks: {
+                                color: '#4a3319', 
+                                font: {
+                                    family: 'Poppins',
+                                    size: 11
+                                }
+                            },
+                            max: 25 
+                        }
+                    }
                 }
-            }
+            });
         });
 
-        // botão sair
-        function sair() {
-            localStorage.clear();
-            window.location.href = "index.html";
+        function logout() {
+            alert("Saindo da fazenda...");
         }
     </script>
-
 </body>
 
 </html>

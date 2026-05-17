@@ -1,175 +1,151 @@
 @import url(https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap);
 
-/* FUNDO */
+/* Configurações Gerais e Importação de Fontes */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Poppins:wght@300;400;600&display=swap');
+
 body {
-  margin: 0;
-  background: linear-gradient(#87CEEB, #6dbf5f);
-  font-family: 'Press Start 2P', cursive;
-  padding: 20px;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4ece1; /* Fundo rústico */
+    color: #4a3319;
 }
 
-/* TOPO */
-.topo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+/* Container Principal em Flexbox */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
 }
 
-/* AREA DO USUARIO */
-.user-area {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.perfil-box img{
-    width: 30px;
-}
-
-.perfil-box span {
-  position: relative;
-  top: -6px;
-}
-
-/* PERFIL MENOR */
-.user-area .perfil-box {
-  margin: 10px;
-  padding: 8px;
-  font-size: 10px;
-}
-
-/* BOTÃO SAIR PEQUENO */
-.user-area .btn-sair {
-  padding: 8px;
-}
-
-/* CAIXA PRINCIPAL */
-.dashboard {
-  background: #f5deb3;
-  border: 6px solid #5c3a21;
-  box-shadow: 8px 8px 0 #3b2616;
-  padding: 20px;
-}
-
-/* TÍTULO */
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 20px;
-}
-
-/* CARDS */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
-
-.card {
-  background: #fff8dc;
-  border: 3px solid #5c3a21;
-  box-shadow: 4px 4px 0 #3b2616;
-  padding: 15px;
-}
-
-/* CORES */
-.verde { background: #caffbf; }
-.azul { background: #a0c4ff; }
-.vermelho { background: #ffadad; }
-.amarelo { background: #fdffb6; }
-
-/* GRAFICO */
-.grafico {
-  background: #fff8dc;
-  border: 3px solid #5c3a21;
-  box-shadow: 4px 4px 0 #3b2616;
-  padding: 15px;
-}
-
-/* ALERTAS */
-.alertas {
-  background: #fff8dc;
-  border: 3px solid #5c3a21;
-  padding: 15px;
-  font-size: 13px;
-}
-
-.alerta {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 2px solid #5c3a21;
-}
-
-/* TEXTO */
-p { font-size: 10px; 
-}
-h2 { font-size: 14px; 
-}
-
-/* LAYOUT */
-.layout {
-  display: flex;
-}
-
-/* SIDEBAR */
+/* Menu Lateral (Sidebar) */
 .sidebar {
-  width: 220px;
-  height: 100vh;
-  background: #f4f6f9;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    width: 260px;
+    background-color: #704c2d; /* Marrom Stardew */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-right: 4px solid #4a3319;
+    box-sizing: border-box;
 }
 
-/* PERFIL */
-.perfil-box {
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-  margin-bottom: 20px;
+.profile-section {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #543920;
+    margin-bottom: 20px;
 }
 
-/* MENU */
-.sidebar ul {
-  list-style: none;
-  padding: 0;
+.avatar-border {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px;
+    border: 3px solid #ffcc00;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
 }
 
-.sidebar li {
-  padding: 10px;
-  margin-bottom: 5px;
-  border-radius: 8px;
-  cursor: pointer;
+.avatar-border img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.sidebar li:hover {
-  background: #e0e4ea;
+.profile-section h3 {
+    margin: 5px 0;
+    font-family: 'VT323', monospace;
+    font-size: 1.8rem;
+    color: #ffcc00;
+    letter-spacing: 1px;
 }
 
-/* ATIVO */
-.ativo {
-  background: #dfe4ff;
-  border-left: 4px solid #5c6bc0;
+.user-title {
+    font-size: 0.85rem;
+    margin: 0;
+    opacity: 0.8;
 }
 
-/* BOTÃO SAIR */
-.btn-sair {
-  background: #ff4d4d;
-  color: white;
-  border: none;
-  font-size: 15px;
-  padding: 15px;
-  border-radius: 8px;
-  cursor: url('../public/images/cursor-botao.png'), auto;
-  font-family: 'Press Start 2P', cursive;
+/* Navegação do Menu */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+    font-weight: 400;
+}
+
+.menu-item:hover, 
+.menu-item.active {
+    background-color: #ffcc00;
+    color: #4a3319;
+    font-weight: 600;
+}
+
+.menu-item.logout:hover {
+    background-color: #cc3333;
+    color: #fff;
+}
+
+/* Área de Conteúdo Principal */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.content-header h1 {
+    margin: 0 0 30px 0;
+    font-family: 'VT323', monospace;
+    font-size: 3.2rem;
+    color: #704c2d;
+}
+
+/* Grid e Caixas de Detalhes */
+.grid-two-columns {
+    display: grid;
+    grid-template-columns: 1fr; /* Responsivo por padrão */
+    gap: 20px;
+}
+
+/* Layout em Grid se a tela for maior */
+@media (min-width: 900px) {
+    .grid-two-columns {
+        grid-template-columns: 1fr; /* Pode ser expandido para 1fr 1fr se adicionar mais caixas */
+    }
+}
+
+.detail-box {
+    background-color: #fff;
+    border: 2px solid #dfcbb5;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.detail-box h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-family: 'VT323', monospace;
+    font-size: 2.2rem;
+    color: #704c2d;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #8c6d53;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* Container do Canvas (Chart.js) */
+.chart-container {
+    position: relative;
+    width: 100%;
 }
