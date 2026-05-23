@@ -1,0 +1,150 @@
+@import url(https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap);
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4ece1; /* Fundo rústico */
+    color: #4a3319;
+}
+
+/* Container Principal em Flexbox */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Menu Lateral (Sidebar) */
+.sidebar {
+    width: 260px;
+    background-color: #704c2d; /* Marrom Stardew */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-right: 4px solid #4a3319;
+    box-sizing: border-box;
+}
+
+.profile-section {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #543920;
+    margin-bottom: 20px;
+}
+
+.avatar-border {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px;
+    border: 3px solid #ffcc00;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.avatar-border img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-section h3 {
+    margin: 5px 0;
+    font-family: 'VT323', monospace;
+    font-size: 1.8rem;
+    color: #ffcc00;
+    letter-spacing: 1px;
+}
+
+.user-title {
+    font-size: 0.85rem;
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* Navegação do Menu */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+    font-weight: 400;
+}
+
+.menu-item:hover, 
+.menu-item.active {
+    background-color: #ffcc00;
+    color: #4a3319;
+    font-weight: 600;
+}
+
+.menu-item.logout:hover {
+    background-color: #cc3333;
+    color: #fff;
+}
+
+/* Área de Conteúdo Principal */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.content-header h1 {
+    margin: 0 0 30px 0;
+    font-family: 'VT323', monospace;
+    font-size: 3.2rem;
+    color: #704c2d;
+}
+
+/* Grid e Caixas de Detalhes */
+.grid-two-columns {
+    display: grid;
+    grid-template-columns: 1fr; /* Responsivo por padrão */
+    gap: 20px;
+}
+
+/* Layout em Grid se a tela for maior */
+@media (min-width: 900px) {
+    .grid-two-columns {
+        grid-template-columns: 1fr; /* Pode ser expandido para 1fr 1fr se adicionar mais caixas */
+    }
+}
+
+.detail-box {
+    background-color: #fff;
+    border: 2px solid #dfcbb5;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.detail-box h2 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-family: 'VT323', monospace;
+    font-size: 2.2rem;
+    color: #704c2d;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #8c6d53;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* Container do Canvas (Chart.js) */
+.chart-container {
+    position: relative;
+    width: 100%;
+}

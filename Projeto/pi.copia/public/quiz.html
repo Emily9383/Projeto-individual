@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo - Quiz</title>
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+
+
+<body onload="onloadEsconder()">
+    <header class="header">
+            <section>
+                <a href="#" class="logo">
+                    <img src="images/estrela.png" alt="logo">
+                    <h1 style="color: #FFF8B5;">Stardew <br><span style="color: white;">Prosperity</span></h1>
+                </a>
+
+                <nav class="navbar">
+                    <a href="index.html"><img src="images/inicio.png" alt="casa" width="20px">Inicio</a>
+                    <a href="#about"><img src="images/galinha.png" alt="galinha" width="20px">Sobre</a>
+                    <a href="calculadora.html"><img src="images/moeda.png" alt="dinheiro"
+                            width="20px">Calculadora</a>
+                    <a href="quiz.html"><img src="https://tse2.mm.bing.net/th/id/OIP.3g5Z-SC6nvpwuJtabguhMQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="casa" width="20px">Quiz</a>
+                    <a href="minas.html"><img src="images/picareta.png" alt="picareta" width="20px"> Minas</a>
+                    <a href="entrar.html"><img src="images/estrela(entrar).png" alt="login" width="20px">Entrar</a>
+                    <a href="cadastro.html"><img src="images/The_Player_Icon.png" alt="folha" width="20px">Cadastro</a>
+                </nav>
+            </section>
+        </header>
+    <div id="pontuacaoEJogo">
+        <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+        <!-- <div id="pontuacao" class="flex-colunar width-fit-content border-primary">
+            <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+
+            </div>
+            </span>
+            <span id="msgFinal" class="width-fit-content">***</span> -->
+        </div>
+    </div>
+
+    <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+
+        <div id="infoQuestao" class="padding-8">
+            <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+                questões.</span>
+        </div>
+
+        <div id="perguntaDaQuestaoAtual" class="padding-8">
+            <span id="spanQuestaoExibida" class="text-bold"></span>
+        </div>
+
+        <div id="opcoes" class="flex-colunar padding-8">
+            <span>
+                <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
+                <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+            </span>
+            <span>
+                <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
+                <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+            </span>
+            <span>
+                <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
+                <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+            </span>
+            <span>
+                <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
+                <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+            </span>
+            <span>
+                <input type="radio" id="quintaOpcao" name="option" class="radio" value="alternativaE" />
+                <label for="quintaOpcao" class="option" id="labelOpcaoQuinta"></label>
+            </span>
+        </div>
+
+        <div id="botoes" class="flex-colunar padding-8">
+            <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
+            <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
+            <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
+            <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+        </div>
+
+    </div>
+        <div id="div_mensagem"></div>
+
+    </div>
+</body>
+
+</html>
+<script>
+    const listaDeQuestoes = [
+
+        {
+            pergunta: "1. Se você pudesse passar uma tarde fazendo uma atividade, qual escolheria?",
+            alternativaA: "A) Jogar videogame, programar ou testar um jogo novo no computador.",
+            personagemA: "Abigail, Sebastian, Sam",
+
+            alternativaB: "B) Criar algo do zero, seja esculpindo, costurando roupas ou escrevendo uma história.",
+            personagemB: "Leah, Emily, Elliott",
+
+            alternativaC: "C) Praticar exercícios, correr ao ar livre ou tirar fotos profissionais da paisagem.",
+            personagemC: "Alex, Haley, Leah",
+
+            alternativaD: "D) Ter uma conversa inteligente sobre ciência, robótica ou organizar coisas de saúde.",
+            personagemD: "Maru, Harvey, Penny",
+
+            alternativaE: "E) Ficar de boa jogando fliperama ou cuidando dos animais no quintal.",
+            personagemE: "Shane, Sam, Abigail"
+
+        },
+
+        {
+            pergunta: "2. Como você costuma agir quando está em um evento com muitas pessoas?",
+            alternativaA: "A) Sou super extrovertido(a), brincalhão(ona) e adoro chamar a atenção ou movimentar o lugar.",
+            personagemA: "Sam, Alex, Haley",
+
+            alternativaB: "B) Sou mais tímido(a), humilde, falo baixo e prefiro focar em ajudar ou ensinar quem precisa.",
+            personagemB: "Penny, Harvey, Maru",
+
+            alternativaC: "Sou bem romântico(a), cavalheiro/gentil, falo de um jeito poético e adoro a calmaria do mar.",
+            personagemC: "Elliott, Leah, Emily",
+
+            alternativaD: "D) Sou mais solitário(a), reservado(a) ou introvertido(a), preferindo o silêncio do meu próprio canto.",
+            personagemD: "Sebastian, Abigail, Maru",
+
+            alternativaE: "E) Posso parecer um pouco rude, mal-humorado(a) ou fechado(a) no começo, mas tenho um coração mole.",
+            personagemE: "Shane, Sebastian, Haley"
+        },
+
+        {
+            pergunta: "3. Qual dessas caracterSaísticas é a mais marcante na sua personalidade? ",
+            alternativaA: "A) A inteligência fascinante, o gosto por computadores, tecnologia ou exatas. ",
+            personagemA: "Maru, Sebastian, Harvey",
+
+            alternativaB: "B) A coragem para enfrentar desafios perigosos, explorar lugares novos e o gosto por música.",
+            personagemB: "Abigail, Sam, Alex",
+
+            alternativaC: "C) Uma forte espiritualidade, alegria contagiante e o gosto por meditação e boas energias.",
+            personagemC: "Emily, Leah, Elliott",
+
+            alternativaD: "D) A capacidade de superar fases difíceis na vida, amadurecer e mostrar um lado super sensível.",
+            personagemD: "Shane, Haley, Penny",
+
+            alternativaE: "E) O instinto de ser muito atencioso(a), cuidadoso(a) com quem amo e focado(a) em uma vida estável.",
+            personagemE: "Harvey, Penny, Elliott"
+        },
+
+        {
+            pergunta: "4. Se você pudesse planejar a sua viagem dos sonhos, para onde iria? ",
+            alternativaA: "A) Para um festival de música ou uma convenção de jogos, cultura pop e fliperamas.",
+            personagemA: "Sam, Abigail, Sebastian",
+
+            alternativaB: "B) Para um retiro ecológico no meio da natureza selvagem para buscar inspiração criativa.",
+            personagemB: "Leah, Elliott, Emily",
+
+            alternativaC: "C) Para uma praia badalada de uma grande cidade para tirar fotos e esbanjar estilo.",
+            personagemC: "Haley, Alex, Elliott",
+
+            alternativaD: "D) Para um grande centro tecnológico ou uma feira internacional de ciências e medicina.",
+            personagemD: "Maru, Harvey, Penny",
+
+            alternativaE: "E) Para uma chácara histórica bem isolada e calma, longe de qualquer agitação do mundo.",
+            personagemE: "Shane, Penny, Leah"
+        },
+        {
+            pergunta: "5. Todo mundo tem defeitos. Qual desses traços mais se parece com o seu lado 'difícil?'",
+            alternativaA: "A) Às vezes sou um pouco mal-humorado(a) com a minha família ou sinto que minha vida familiar é complicada.",
+            personagemA: "Abigail, Penny, Shane",
+
+            alternativaB: "B) Escondo minhas inseguranças sobre o futuro e sobre mim mesmo(a) atrás de uma postura muito focada ou orgulhosa.",
+            personagemB: "Alex, Haley, Maru",
+
+            alternativaC: "C) Sou um pouco excêntrico(a) demais, vivo no 'mundo da lua' ou prefiro ficar muito isolado(a) do resto do mundo.",
+            personagemC: "Emily, Elliott, Sebastian",
+
+            alternativaD: "D) Sou muito preocupado(a) com as regras, um pouco nerd ou excessivamente ansioso(a) com as coisas.",
+            personagemD: "Harvey, Maru, Alex",
+
+            alternativaE: "E) Posso ser muito ranzinza, irônico(a) ou superficial no começo, antes de pegar total confiança nas pessoas.",
+            personagemE: "Shane, Haley, Sam"
+        }
+
+    ]
+
+    // variáveis globais    
+    let numeroDaQuestaoAtual = 0
+    // let pontuacaoFinal = 0
+    // let tentativaIncorreta = 0
+    let Alex = 0
+    let Sebastian = 0
+    let Abigail = 0
+    let Leah = 0
+    let Sam = 0
+    let Haley = 0
+    let Harvey = 0
+    let Elliott = 0
+    let Emily = 0
+    let Maru = 0
+    let Penny = 0
+    let Shane = 0
+    let quantidadeDeQuestoes = listaDeQuestoes.length
+    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
+
+    function onloadEsconder() {
+        // document.getElementById('pontuacao').style.display = "none"
+        document.getElementById('jogo').style.display = "none"
+    }
+
+    function iniciarQuiz() {
+        // document.getElementById('pontuacao').style.display = "flex"
+        document.getElementById('jogo').style.display = "flex"
+        document.getElementById('btnIniciarQuiz').style.display = "none"
+
+        document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
+
+        preencherHTMLcomQuestaoAtual(0)
+
+        btnSubmeter.disabled = false
+        btnProx.disabled = true
+        // btnConcluir.disabled = true
+        btnTentarNovamente.disabled = true
+    }
+
+    function preencherHTMLcomQuestaoAtual(index) {
+        habilitarAlternativas(true)
+        const questaoAtual = listaDeQuestoes[index]
+        numeroDaQuestaoAtual = index
+        console.log("questaoAtual")
+        console.log(questaoAtual)
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+        document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+        document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
+        document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
+        document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+        document.getElementById("labelOpcaoQuinta").innerHTML = questaoAtual.alternativaE;
+
+    }
+
+    function submeter() {
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let hasChecked = false
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].checked) {
+                hasChecked = true
+                break
+            }
+        }
+
+        if (!hasChecked) {
+            alert("Não há alternativas escolhidas. Escolha uma opção.")
+        } else {
+            btnSubmeter.disabled = true
+            btnProx.disabled = false
+
+            habilitarAlternativas(false)
+
+            checarResposta()
+        }
+    }
+
+    function habilitarAlternativas(trueOrFalse) {
+        let opcaoEscolhida = trueOrFalse ? false : true
+
+        primeiraOpcao.disabled = opcaoEscolhida
+        segundaOpcao.disabled = opcaoEscolhida
+        terceiraOpcao.disabled = opcaoEscolhida
+        quartaOpcao.disabled = opcaoEscolhida
+        quintaOpcao.disabled = opcaoEscolhida
+
+
+    }
+
+    function avancar() {
+        btnProx.disabled = true
+        btnSubmeter.disabled = false
+
+        desmarcarRadioButtons()
+
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
+            alert("Atenção... a próxima é a ultima questão!")
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else {
+            finalizarJogo()
+        }
+        limparCoresBackgroundOpcoes()
+    }
+
+    function tentarNovamente() {
+        // atualiza a página
+        window.location.reload()
+    }
+
+    function checarResposta() {
+        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
+        // const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
+
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        // let alternativaCorreta = null // variável para armazenar a alternativa correta
+
+        // options.forEach((option) => {
+        //     if (option.value === respostaQuestaoAtual) {
+        //         console.log("alternativaCorreta está no componente: " + alternativaCorreta)
+        //         alternativaCorreta = option.labels[0].id
+        //     }
+        // })
+
+        // verifica se resposta assinalada é correta
+
+        options.forEach((option) => {
+            let alternativaEscolhida = option.labels[0].id;
+        })
+
+        options.forEach((option) => {
+            if (option.checked === true && numeroDaQuestaoAtual == 0 && option.value == "alternativaA") {
+                Abigail++;
+                Sam++
+                Sebastian++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 0 && option.value == "alternativaB") {
+                Leah++;
+                Emily++
+                Elliott++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 0 && option.value == "alternativaC") {
+                Alex++;
+                Haley++
+                Leah++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 0 && option.value == "alternativaD") {
+                Maru++;
+                Harvey++
+                Penny++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 0 && option.value == "alternativaE") {
+                Shane++;
+                Sam++
+                Abigail++
+                numeroDaQuestaoAtual++
+            }
+
+
+            else if (option.checked === true && numeroDaQuestaoAtual == 1 && option.value == "alternativaA") {
+                Alex++;
+                Sam++
+                Haley++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 1 && option.value == "alternativaB") {
+                Penny++;
+                Haley++
+                Maru++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 1 && option.value == "alternativaC") {
+                Elliott++;
+                Emily++
+                Leah++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 1 && option.value == "alternativaD") {
+                Sebastian++;
+                Abigail++
+                Maru++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 1 && option.value == "alternativaE") {
+                Shane++;
+                Sebastian++
+                Haley++
+                numeroDaQuestaoAtual++
+            }
+
+
+            else if (option.checked === true && numeroDaQuestaoAtual == 2 && option.value == "alternativaA") {
+                Maru++;
+                Sebastian++
+                Haley++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 2 && option.value == "alternativaB") {
+                Abigail++;
+                Sam++
+                Alex++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 2 && option.value == "alternativaC") {
+                Elliott++;
+                Emily++
+                Leah++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 2 && option.value == "alternativaD") {
+                Shane++;
+                Harvey++
+                Penny++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 2 && option.value == "alternativaE") {
+                Elliott++;
+                Penny++
+                Haley++
+                numeroDaQuestaoAtual++
+            }
+
+
+            else if (option.checked === true && numeroDaQuestaoAtual == 3 && option.value == "alternativaA") {
+                Sam++;
+                Abigail++
+                Sebastian++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 3 && option.value == "alternativaB") {
+                Leah++
+                Elliott++
+                Emily++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 3 && option.value == "alternativaC") {
+                Haley++;
+                Alex++
+                Elliott++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 3 && option.value == "alternativaD") {
+                Harvey++;
+                Penny++
+                Maru++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 3 && option.value == "alternativaE") {
+                Shane++;
+                Penny++
+                Leah++
+                numeroDaQuestaoAtual++
+            }
+
+
+            else if (option.checked === true && numeroDaQuestaoAtual == 4 && option.value == "alternativaA") {
+                Penny++;
+                Abigail++
+                Shane++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 4 && option.value == "alternativaB") {
+                Alex++
+                Harvey++
+                Maru++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 4 && option.value == "alternativaC") {
+                Emily++;
+                Sebastian++
+                Elliott++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 4 && option.value == "alternativaD") {
+                Harvey++;
+                Alex++
+                Maru++
+                numeroDaQuestaoAtual++
+            }
+            else if (option.checked === true && numeroDaQuestaoAtual == 4 && option.value == "alternativaE") {
+                Shane++;
+                Sam++
+                Haley++
+                numeroDaQuestaoAtual++
+            }
+            // if (option.checked === true && option.value === respostaQuestaoAtual) {
+            //     document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+            //     // pontuacaoFinal++
+            //     // certas++
+            //     document.getElementById("spanCertas").innerHTML = certas
+            //     numeroDaQuestaoAtual++
+            // } else if (option.checked && option.value !== respostaQuestaoAtual) {
+            //     const wrongLabelId = option.labels[0].id
+
+            //     document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
+            //     document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+            //     // tentativaIncorreta++
+            //     // erradas++
+            //     document.getElementById("spanErradas").innerHTML = erradas
+            //     numeroDaQuestaoAtual++
+            // }
+        })
+    }
+
+    function limparCoresBackgroundOpcoes() {
+        const options = document.getElementsByName("option");
+        options.forEach((option) => {
+            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+        })
+    }
+
+    function desmarcarRadioButtons() {
+        const options = document.getElementsByName("option");
+        for (let i = 0; i < options.length; i++) {
+            options[i].checked = false;
+        }
+    }
+
+    function finalizarJogo() {
+        let textoParaMensagemFinal = null
+        let classComCoresParaMensagemFinal = null
+        // const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
+
+        // if (porcentagemFinalDeAcertos <= 0.3) {
+        //     textoParaMensagemFinal = "Parece que você não estudou..."
+        //     classComCoresParaMensagemFinal = "text-danger-with-bg"
+        // }
+        // else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
+        //     textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
+        //     classComCoresParaMensagemFinal = "text-warning-with-bg"
+        // }
+        // else if (porcentagemFinalDeAcertos >= 0.9) {
+        //     textoParaMensagemFinal = "Uau, parabéns!"
+        //     classComCoresParaMensagemFinal = "text-success-with-bg"
+        // }
+
+        if (Sam >= Abigail &&
+            Sam >= Maru &&
+            Sam >= Sebastian &&
+            Sam >= Harvey &&
+            Sam >= Haley &&
+            Sam >= Leah &&
+            Sam >= Elliott &&
+            Sam >= Penny &&
+            Sam >= Shane &&
+            Sam >= Emily &&
+            Sam >= Alex
+        ) {
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Sam ✨</h1>`;        }
+        else if (Abigail >= Sam &&
+            Abigail >= Maru &&
+            Abigail >= Sebastian &&
+            Abigail >= Harvey &&
+            Abigail >= Haley &&
+            Abigail >= Leah &&
+            Abigail > Elliott &&
+            Abigail >= Penny &&
+            Abigail >= Shane &&
+            Abigail >= Emily &&
+            Abigail >= Alex
+        ) {
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Abigail ✨</h1>`;
+        }
+        else if (Maru >= Sam &&
+            Maru >= Abigail &&
+            Maru >= Sebastian &&
+            Maru >= Harvey &&
+            Maru >= Haley &&
+            Maru >= Leah &&
+            Maru >= Elliott &&
+            Maru >= Penny &&
+            Maru >= Shane &&
+            Maru >= Emily &&
+            Maru >= Alex
+        ) {
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Maru ✨</h1>`;
+        }
+        else if (Sebastian >= Sam &&
+            Sebastian >= Abigail &&
+            Sebastian >= Maru &&
+            Sebastian >= Harvey &&
+            Sebastian >= Haley &&
+            Sebastian >= Leah &&
+            Sebastian >= Elliott &&
+            Sebastian >= Penny &&
+            Sebastian >= Shane &&
+            Sebastian >= Emily &&
+            Sebastian >= Alex
+        ) {
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Sebastian ✨</h1>`;
+        }
+        else if (Harvey >= Sam &&
+            Harvey >= Abigail &&
+            Harvey >= Maru &&
+            Harvey >= Sebastian &&
+            Harvey >= Haley &&
+            Harvey >= Leah &&
+            Harvey >= Elliott &&
+            Harvey >= Penny &&
+            Harvey >= Shane &&
+            Harvey >= Emily &&
+            Harvey >= Alex
+        ) {
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Harvey ✨</h1>`;
+        }
+        else if (Haley >= Sam &&
+            Haley >= Abigail &&
+            Haley >= Maru &&
+            Haley >= Sebastian &&
+            Haley >= Harvey &&
+            Haley >= Leah &&
+            Haley >= Elliott &&
+            Haley >= Penny &&
+            Haley >= Shane &&
+            Haley >= Emily &&
+            Haley >= Alex
+        ) { 
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Haley ✨</h1>`;
+        }
+        else if (Leah >= Sam &&
+            Leah >= Abigail &&
+            Leah >= Maru &&
+            Leah >= Sebastian &&
+            Leah >= Harvey &&
+            Leah >= Haley &&
+            Leah >= Elliott &&
+            Leah >= Penny &&
+            Leah >= Shane &&
+            Leah >= Emily &&
+            Leah >= Alex
+        ) {
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Leah ✨</h1>`;
+         }
+        else if (Elliott >= Sam &&
+            Elliott >= Abigail &&
+            Elliott >= Maru &&
+            Elliott >= Sebastian &&
+            Elliott >= Harvey &&
+            Elliott >= Haley &&
+            Elliott >= Leah &&
+            Elliott >= Penny &&
+            Elliott >= Shane &&
+            Elliott >= Emily &&
+            Elliott >= Alex
+        ) {
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Elliott ✨</h1>`;
+         }
+        else if (Shane >= Sam &&
+            Shane >= Abigail &&
+            Shane >= Maru &&
+            Shane >= Sebastian &&
+            Shane >= Harvey &&
+            Shane >= Haley &&
+            Shane >= Leah &&
+            Shane >= Elliott &&
+            Shane >= Penny &&
+            Shane >= Emily &&
+            Shane >= Alex
+        ) { 
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Shane ✨</h1>`;
+        }
+        else if (Emily >= Sam &&
+            Emily >= Abigail &&
+            Emily >= Maru &&
+            Emily >= Sebastian &&
+            Emily >= Harvey &&
+            Emily >= Haley &&
+            Emily >= Leah &&
+            Emily >= Elliott &&
+            Emily >= Shane &&
+            Emily >= Alex
+        ) { 
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Emily ✨</h1>`;
+        }
+        else if (Alex >= Sam &&
+            Alex >= Abigail &&
+            Alex >= Maru &&
+            Alex >= Sebastian &&
+            Alex >= Harvey &&
+            Alex >= Haley &&
+            Alex >= Leah &&
+            Alex >= Elliott &&
+            Alex >= Shane &&
+            Alex >= Emily
+
+        ) { 
+div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+                             <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+                             <h1 style="color: #722F37;">✨ Alex ✨</h1>`;
+        }
+
+        // let Alex = 0
+        //     let Sebastian = 0
+        //     let Abigail = 0
+        //     let Leah = 0
+        //     let Sam = 0
+        //     let Haley = 0
+        //     let Harvey = 0
+        //     let Elliott = 0
+        //     let Emily = 0
+        //     let Maru = 0
+        //     let Penny = 0
+        //     let Shane = 0
+        // textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões."
+
+
+        // document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
+        // document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal)
+        // document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
+
+        const resultados = {
+            "Sam": Sam, "Abigail": Abigail, "Maru": Maru, "Sebastian": Sebastian,
+            "Harvey": Harvey, "Haley": Haley, "Leah": Leah, "Elliott": Elliott,
+            "Shane": Shane, "Emily": Emily, "Alex": Alex, "Penny": Penny
+        };
+
+        // let vencedor = "";
+        // let maiorPontuacao = -1;
+
+        // for (const personagem in resultados) {
+        //     if (resultados[personagem] > maiorPontuacao) {
+        //         maiorPontuacao = resultados[personagem];
+        //         vencedor = personagem;
+        //     }
+        // }
+
+        // // Texto customizado para a tela final
+        // let mensagemFinal = `<h2>Quiz Concluído!</h2>
+        //                      <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
+        //                      <h1 style="color: #722F37;">✨ ${vencedor} ✨</h1>`;
+
+        // document.getElementById('msgFinal').innerHTML = mensagemFinal;
+
+        btnProx.disabled = true;
+        btnSubmeter.disabled = true;
+        btnTentarNovamente.disabled = false;
+    }
+    
+</script>
