@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stardew Valley - Dashboard</title>
     <link rel="stylesheet" href="../css/dashboard.css">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/sessao.js"></script>
 </head>
 
 <body>
@@ -14,13 +16,13 @@
     <div class="dashboard-container">
         <aside class="sidebar">
             <div class="profile-section">
-                <h3 id="username-display">Bem-vindo Usuário</h3>
+                <h3 id="username-display">Olá, <span id="b_usuario">usuário</span>!</h3>
             </div>
 
             <nav class="sidebar-menu">
                 <a href="#" class="menu-item active">📊 Visão Geral</a>
                 <a href="../quiz.html" class="menu-item">🎮 Refazer Quiz</a>
-                <a href="../index.html" class="menu-item logout" onclick="logout()">🚪 Sair</a>
+                <a href="#" class="menu-item logout" onclick="limparSessao()">🚪 Sair</a>
             </nav>
         </aside>
 
@@ -33,8 +35,11 @@
                 <div class="detail-box" style="display: flex; align-items: center; gap: 20px; padding: 15px 25px;">
                     <div class="metric-icon" style="font-size: 2.5rem;">🎮</div>
                     <div>
-                        <h3 style="margin: 0; font-size: 0.9rem; text-transform: uppercase; color: #8c6d53; letter-spacing: 0.5px;">Total de Quizzes Realizados</h3>
-                        <p id="total-quizzes" style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: 600; color: #704c2d;">154</p>
+                        <h3
+                            style="margin: 0; font-size: 0.9rem; text-transform: uppercase; color: #8c6d53; letter-spacing: 0.5px;">
+                            Total de Quizzes Realizados</h3>
+                        <p id="total-quizzes"
+                            style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: 600; color: #704c2d;">...</p>
                     </div>
                 </div>
             </section>
@@ -53,45 +58,101 @@
     </div>
 
     <script>
+        // Atribui o nome do usuário logado vindo do sessionStorage da API
+        b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+        let proximaAtualizacao;
+        let meuGrafico; // Variável global para armazenar a instância do gráfico
+
+        // Quando a página terminar de renderizar o DOM, dispara a busca na API
         document.addEventListener("DOMContentLoaded", function () {
-            const dadosPersonagens = {
-                labels: [
-                    'Sebastian 🐸', 'Abigail 🔮', 'Leah 🎨', 'Sam 🎸', 
-                    'Haley 📸', 'Harvey 🩺', 'Alex 🏈', 'Elliott ✍️', 
-                    'Emily 💎', 'Maru 🚀', 'Penny 📚', 'Shane 🐔'
-                ],
-                votos: [18, 15, 12, 11, 9, 8, 7, 6, 5, 4, 3, 2] 
-            };
+            obterDadosGrafico();
+        });
+
+        // 1. FUNÇÃO PARA BUSCAR DADOS DO BANCO 
+        function obterDadosGrafico() {
+            if (proximaAtualizacao != undefined) {
+                clearTimeout(proximaAtualizacao);
+            }
+
+            fetch(`/medidas/votos-quiz`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        plotarGrafico(resposta);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+        // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+        // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+        // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+        function plotarGrafico(resposta) {
+
+            console.log('Iniciando plotagem do gráfico...');
+
+            // Estruturas vazias que serão populadas dinamicamente com o resultado do Banco de Dados
+            let labels = [];
+            let dadosVotos = [];
+            let totalQuizzesGeral = 0;
+
+            console.log('----------------------------------------------');
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":');
+            console.log(resposta);
+
+            // Inserindo valores recebidos em estrutura para plotar o gráfico
+            for (let i = 0; i < resposta.length; i++) {
+                let registro = resposta[i];
+                labels.push(registro.nome_personagem);
+                dadosVotos.push(registro.votos);
+                totalQuizzesGeral += Number(registro.votos); // Acumula para a métrica totalizadora
+            }
+
+            // Atualiza o KPI de totalizador de quizzes na página
+            document.getElementById("total-quizzes").innerHTML = totalQuizzesGeral;
 
             const ctx = document.getElementById('quizChart').getContext('2d');
 
-            const meuGrafico = new Chart(ctx, {
-                type: 'bar', 
+            // Caso o gráfico já tenha sido gerado anteriormente, destrói o anterior para evitar sobreposição
+            if (meuGrafico) {
+                meuGrafico.destroy();
+            }
+
+            meuGrafico = new Chart(ctx, {
+                type: 'bar',
                 data: {
-                    labels: dadosPersonagens.labels,
+                    labels: labels, // Inserção de dados dinâmicos da API
                     datasets: [{
-                        data: dadosPersonagens.votos,
+                        data: dadosVotos, // Inserção de dados dinâmicos da API
                         backgroundColor: [
-                            '#5c3d99', '#993d93', '#2d7a47', '#d1a124', 
-                            '#4da6ff', '#8c6d53', '#1e4620', '#b85c00', 
+                            '#5c3d99', '#993d93', '#2d7a47', '#d1a124',
+                            '#4da6ff', '#8c6d53', '#1e4620', '#b85c00',
                             '#ff4d94', '#7a297a', '#ff944d', '#2e5c8a'
                         ],
                         borderWidth: 0,
-                        borderRadius: 4 
+                        borderRadius: 4
                     }]
                 },
                 options: {
-                    indexAxis: 'x', 
+                    indexAxis: 'x',
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            display: false 
+                            display: false
                         },
                         tooltip: {
                             callbacks: {
                                 label: function (context) {
-                                    return ` ${context.raw}% dos usuários`;
+                                    // Retorna a quantidade absoluta de votos dinamicamente no balão
+                                    return ` Votos: ${context.raw}`;
                                 }
                             }
                         }
@@ -99,11 +160,11 @@
                     scales: {
                         x: {
                             grid: {
-                                display: false 
+                                display: false
                             },
                             ticks: {
-                                color: '#4a3319', 
-                                maxRotation: 45, 
+                                color: '#4a3319',
+                                maxRotation: 45,
                                 minRotation: 45,
                                 font: {
                                     family: 'Poppins',
@@ -114,24 +175,51 @@
                         },
                         y: {
                             grid: {
-                                display: false 
+                                display: false
                             },
                             ticks: {
-                                color: '#4a3319', 
+                                color: '#4a3319',
                                 font: {
                                     family: 'Poppins',
                                     size: 11
                                 }
                             },
-                            max: 25 
+                            beginAtZero: true // Alinhado para ajustar o topo automaticamente ao invés de fixar em 25
                         }
                     }
                 }
             });
-        });
 
-        function logout() {
-            alert("Saindo da fazenda...");
+
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(dadosVotos, labels, meuGrafico), 2000);
+        }
+
+        // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+        // buscando a última medida inserida em tabela contendo as capturas, 
+
+        //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+        //     Para ajustar o "select", ajuste o comando sql em src/models
+        function atualizarGrafico(dadosVotos, labels, meuGrafico) {
+        
+            fetch(`/medidas/tempo-real-quiz`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+
+                        console.log(`Dados de atualização recebidos: ${JSON.stringify(novoRegistro)}`);
+
+                        // Lógica de manipulação de dados para gráficos dinâmicos temporais/barras
+                        // Recarrega os dados estruturados invocando a busca novamente se preferir estabilidade completa:
+                        obterDadosGrafico();
+
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API de tempo real');
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(dadosVotos, labels, meuGrafico), 2000);
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados em tempo real: ${error.message}`);
+                });
         }
     </script>
 </body>

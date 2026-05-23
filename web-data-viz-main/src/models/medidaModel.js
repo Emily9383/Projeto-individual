@@ -1,35 +1,37 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idAquario, limite_linhas) {
+// Função para buscar os dados que vão preencher o Gráfico de Barras (Personagens mais populares)
+function buscarVotosGlobais() {
 
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        momento,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-                    FROM medida
-                    WHERE fk_aquario = ${idAquario}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
+    // Query baseada no seu SELECT GROUP BY que conta os votos por personagem
+    var instrucaoSql = `
+        SELECT 
+            personagem, 
+            COUNT(*) AS votos
+        FROM quiz
+        GROUP BY personagem
+        ORDER BY votos DESC;
+    `;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    console.log("Executando a instrução SQL (Votos Globais): \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idAquario) {
+// Função em tempo real / contagem rápida para atualizar o totalizador de Quizzes (KPI/Card)
+function buscarTotalQuizzes() {
 
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        FROM medida WHERE fk_aquario = ${idAquario} 
-                    ORDER BY id DESC LIMIT 1`;
+    // Query baseada no seu SELECT COUNT(*) que traz o total geral de quizzes realizados
+    var instrucaoSql = `
+        SELECT 
+            COUNT(*) AS total_quiz 
+        FROM quiz;
+    `;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    console.log("Executando a instrução SQL (Total de Quizzes): \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
-}
+    buscarVotosGlobais,
+    buscarTotalQuizzes
+};
