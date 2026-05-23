@@ -531,7 +531,7 @@ body .main-fundo{
 
 .main-cadastro {
     background: url(https://images3.alphacoders.com/126/thumb-1920-1269904.png);
-    background-size: cover; /* melhor aqui */
+    background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh; 
@@ -540,7 +540,7 @@ body .main-fundo{
 .main-fundo {
     margin: 0;
     padding: 0;
-    background-color: #1a110a; /* Fundo escuro padrão */
+    background-color: #1a110a; 
     font-family: "Press Start 2P", system-ui;
     font-size: 14px;
 }
