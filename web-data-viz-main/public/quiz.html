@@ -1,95 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exemplo - Quiz</title>
+    <!-- CORREÇÃO: Links fechados e tags corrigidas -->
     <link rel="stylesheet" href="css/quiz.css">
+    <script src="js/sessao.js"></script>
 </head>
 
-
 <body onload="onloadEsconder()">
-    <header class="header">
-            <section>
-                <a href="#" class="logo">
-                    <img src="images/estrela.png" alt="logo">
-                    <h1 style="color: #FFF8B5;">Stardew <br><span style="color: white;">Prosperity</span></h1>
-                </a>
+    <aside class="sidebar">
+        <div class="profile-section">
+            <h3 id="username-display">Olá, <span id="b_usuario">usuário</span>!</h3>
+        </div>
 
-                <nav class="navbar">
-                    <a href="index.html"><img src="images/inicio.png" alt="casa" width="20px">Inicio</a>
-                    <a href="#about"><img src="images/galinha.png" alt="galinha" width="20px">Sobre</a>
-                    <a href="calculadora.html"><img src="images/moeda.png" alt="dinheiro"
-                            width="20px">Calculadora</a>
-                    <a href="quiz.html"><img src="https://tse2.mm.bing.net/th/id/OIP.3g5Z-SC6nvpwuJtabguhMQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="casa" width="20px">Quiz</a>
-                    <a href="minas.html"><img src="images/picareta.png" alt="picareta" width="20px"> Minas</a>
-                    <a href="entrar.html"><img src="images/estrela(entrar).png" alt="login" width="20px">Entrar</a>
-                    <a href="cadastro.html"><img src="images/The_Player_Icon.png" alt="folha" width="20px">Cadastro</a>
-                </nav>
-            </section>
-        </header>
-    <div id="pontuacaoEJogo">
-        <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+        <nav class="sidebar-menu">
+            <a href="dashboard/dashboard.html" class="menu-item active">📊 Visão Geral</a>
+            <a href="quiz.html" class="menu-item">🎮Quiz</a>
+            <a href="index.html" class="menu-item logout" onclick="limparSessao()">🚪 Sair</a>
+        </nav>
+    </aside>
 
-        <!-- <div id="pontuacao" class="flex-colunar width-fit-content border-primary">
-            <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+    <div class="main-content">
+        <div id="pontuacaoEJogo">
+            <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+        </div>
 
+        <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+            <div id="infoQuestao" class="padding-8">
+                <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+                    questões.</span>
             </div>
-            </span>
-            <span id="msgFinal" class="width-fit-content">***</span> -->
-        </div>
-    </div>
 
-    <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+            <div id="perguntaDaQuestaoAtual" class="padding-8">
+                <span id="spanQuestaoExibida" class="text-bold"></span>
+            </div>
 
-        <div id="infoQuestao" class="padding-8">
-            <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
-                questões.</span>
-        </div>
+            <div id="opcoes" class="flex-colunar padding-8">
+                <span>
+                    <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
+                    <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+                </span>
+                <span>
+                    <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
+                    <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+                </span>
+                <span>
+                    <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
+                    <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+                </span>
+                <span>
+                    <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
+                    <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+                </span>
+                <span>
+                    <input type="radio" id="quintaOpcao" name="option" class="radio" value="alternativaE" />
+                    <label for="quintaOpcao" class="option" id="labelOpcaoQuinta"></label>
+                </span>
+            </div>
 
-        <div id="perguntaDaQuestaoAtual" class="padding-8">
-            <span id="spanQuestaoExibida" class="text-bold"></span>
-        </div>
-
-        <div id="opcoes" class="flex-colunar padding-8">
-            <span>
-                <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
-                <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
-            </span>
-            <span>
-                <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
-                <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
-            </span>
-            <span>
-                <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
-                <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
-            </span>
-            <span>
-                <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
-                <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
-            </span>
-            <span>
-                <input type="radio" id="quintaOpcao" name="option" class="radio" value="alternativaE" />
-                <label for="quintaOpcao" class="option" id="labelOpcaoQuinta"></label>
-            </span>
+            <div id="botoes" class="flex-colunar padding-8">
+                <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
+                <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
+                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+            </div>
         </div>
 
-        <div id="botoes" class="flex-colunar padding-8">
-            <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
-            <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
-            <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
-            <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
-        </div>
-
-    </div>
         <div id="div_mensagem"></div>
-
     </div>
 </body>
 
 </html>
 <script>
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
     const listaDeQuestoes = [
 
         {
@@ -509,6 +496,7 @@
             options[i].checked = false;
         }
     }
+    let personagemTirou = ""
 
     function finalizarJogo() {
         let textoParaMensagemFinal = null
@@ -528,6 +516,7 @@
         //     classComCoresParaMensagemFinal = "text-success-with-bg"
         // }
 
+
         if (Sam >= Abigail &&
             Sam >= Maru &&
             Sam >= Sebastian &&
@@ -540,9 +529,12 @@
             Sam >= Emily &&
             Sam >= Alex
         ) {
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+            personagemTirou = "Sam"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Sam ✨</h1>`;        }
+                             <h1 style="color: #722F37;">✨ Sam ✨</h1>
+                             <img src="images/Sam.png" alt="sam">`;
+        }
         else if (Abigail >= Sam &&
             Abigail >= Maru &&
             Abigail >= Sebastian &&
@@ -555,9 +547,11 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Abigail >= Emily &&
             Abigail >= Alex
         ) {
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+            personagemTirou = "Abigail"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Abigail ✨</h1>`;
+                             <h1 style="color: #722F37;">✨ Abigail ✨</h1>
+                             <img src="images/Abigail.png" alt="abigail">`;
         }
         else if (Maru >= Sam &&
             Maru >= Abigail &&
@@ -571,9 +565,11 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Maru >= Emily &&
             Maru >= Alex
         ) {
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+            personagemTirou = "Maru"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Maru ✨</h1>`;
+                             <h1 style="color: #722F37;">✨ Maru ✨</h1>
+                             <img src="images/Maru.png" alt="Maru">`;
         }
         else if (Sebastian >= Sam &&
             Sebastian >= Abigail &&
@@ -587,9 +583,11 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Sebastian >= Emily &&
             Sebastian >= Alex
         ) {
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+            personagemTirou = "Sebastian"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Sebastian ✨</h1>`;
+                             <h1 style="color: #722F37;">✨ Sebastian ✨</h1>
+                             <img src="images/Sebastian.png" alt="sebastian">`;
         }
         else if (Harvey >= Sam &&
             Harvey >= Abigail &&
@@ -603,9 +601,11 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Harvey >= Emily &&
             Harvey >= Alex
         ) {
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+            personagemTirou = "Harvey"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Harvey ✨</h1>`;
+                             <h1 style="color: #722F37;">✨ Harvey ✨</h1>
+                             <img src="images/Harvey.png" alt="havey">`;
         }
         else if (Haley >= Sam &&
             Haley >= Abigail &&
@@ -618,10 +618,12 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Haley >= Shane &&
             Haley >= Emily &&
             Haley >= Alex
-        ) { 
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+        ) {
+            personagemTirou = "Haley"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Haley ✨</h1>`;
+                             <h1 style="color: #722F37;">✨ Haley ✨</h1>
+                             <img src="images/Haley.png" alt="haley">`;
         }
         else if (Leah >= Sam &&
             Leah >= Abigail &&
@@ -635,10 +637,12 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Leah >= Emily &&
             Leah >= Alex
         ) {
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+            personagemTirou = "Leah"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Leah ✨</h1>`;
-         }
+                             <h1 style="color: #722F37;">✨ Leah ✨</h1>
+                             <img src="images/Leah.png" alt="leah">`;
+        }
         else if (Elliott >= Sam &&
             Elliott >= Abigail &&
             Elliott >= Maru &&
@@ -651,10 +655,12 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Elliott >= Emily &&
             Elliott >= Alex
         ) {
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+            personagemTirou = "Elliott"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Elliott ✨</h1>`;
-         }
+                             <h1 style="color: #722F37;">✨ Elliott ✨</h1>
+                             <img src="images/Elliott.png" alt="elliott">`;
+        }
         else if (Shane >= Sam &&
             Shane >= Abigail &&
             Shane >= Maru &&
@@ -666,10 +672,12 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Shane >= Penny &&
             Shane >= Emily &&
             Shane >= Alex
-        ) { 
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+        ) {
+            personagemTirou = "Shane"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Shane ✨</h1>`;
+                             <h1 style="color: #722F37;">✨ Shane ✨</h1>
+                             <img src="images/Shane.png" alt="shane">`;
         }
         else if (Emily >= Sam &&
             Emily >= Abigail &&
@@ -681,10 +689,12 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Emily >= Elliott &&
             Emily >= Shane &&
             Emily >= Alex
-        ) { 
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+        ) {
+            personagemTirou = "Emily"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Emily ✨</h1>`;
+                             <h1 style="color: #722F37;">✨ Emily ✨</h1>
+                             <img src="images/Emily.png" alt="emily">`;
         }
         else if (Alex >= Sam &&
             Alex >= Abigail &&
@@ -697,10 +707,12 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
             Alex >= Shane &&
             Alex >= Emily
 
-        ) { 
-div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
+        ) {
+            personagemTirou = "Alex"
+            div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
                              <p>Seu estilo de vida e escolhas combinam mais com o morador:</p>
-                             <h1 style="color: #722F37;">✨ Alex ✨</h1>`;
+                             <h1 style="color: #722F37;">✨ Alex ✨</h1><br>
+                             <img src="images/Alex.png" alt="alex">img`;
         }
 
         // let Alex = 0
@@ -748,6 +760,51 @@ div_mensagem.innerHTML = `<h2>Quiz Concluído!</h2>
         btnProx.disabled = true;
         btnSubmeter.disabled = true;
         btnTentarNovamente.disabled = false;
+
+        document.getElementById('div_mensagem').style.display = 'block';
+
+        buscarTotalQuizzes();
     }
-    
+    let sessionStorageIdusuario = sessionStorage.ID_USUARIO;
+
+    function buscarTotalQuizzes() {
+        fetch("/medidas/buscarTotalQuizzes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                PersonagemServer: personagemTirou,
+                idUsuarioServer: sessionStorageIdusuario
+
+                // idEmpresaVincularServer: idEmpresaVincular
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    cardErro.style.display = "block";
+
+                    console.log("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+
+                    // setTimeout(() => {
+                    //     window.location = "dashboard.html";
+                    // }, "2000");
+
+                    // limparFormulario();
+                    // finalizarAguardar();
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                // finalizarAguardar();
+            });
+
+        return false;
+    }
 </script>

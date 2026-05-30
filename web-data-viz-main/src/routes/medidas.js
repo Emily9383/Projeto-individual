@@ -3,11 +3,11 @@ var router = express.Router();
 
 var medidaController = require("../controllers/medidaController");
 
-router.get("/votos-quiz", function (req, res) {
-    medidaController.buscarUltimasMedidas(req, res);
+router.get("/buscarVotosGlobais", function (req, res) {
+    medidaController.buscarVotosGlobais(req, res);
 });
 
-router.get("/tempo-real-quiz", function (req, res) {
+router.post("/buscarTotalQuizzes", function (req, res) {
     medidaController.buscarTotalQuizzes(req, res);
 })
 

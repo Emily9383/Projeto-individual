@@ -9,7 +9,7 @@
     cursor: url('../images/152330.png'), auto;
     box-sizing: border-box;
 }
-
+    
 body {
     background-color: #2c1b02; /* Tom de madeira escuro de fundo */
     background-image: radial-gradient(#4a300a 15%, transparent 16%),
@@ -17,76 +17,96 @@ body {
     background-size: 60px 60px;
     background-position: 0 0, 30px 30px;
     display: flex;
+    flex-direction: row; /* CORREÇÃO: Alinha a barra lateral na esquerda e o conteúdo na direita */
+    min-height: 100vh;
+}
+
+/* Área que envelopa o conteúdo do jogo para centralizar o quiz na tela */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
     padding: 20px;
 }
 
-  .header {
-    position: fixed;
-    height: 75px;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000; /* Aumente o z-index para garantir que ele fique sempre por cima */
-    background-color: rgba(0, 48, 137, 0.7);
-    box-shadow: 0 10px 10px 5px rgba(0, 48, 137, 0.7); 
-    backdrop-filter: blur(6px)
-    
-}
-
-  .header section {
+.sidebar {
+    width: 260px;
+    background-color: #704c2d; /* Marrom Stardew */
+    color: #fff;
     display: flex;
-    justify-content: space-between;
-    padding: 1.5rem 50px;
-    
-  }
-
-  .logo {
-    display: flex;         /* Ativa o alinhamento lado a lado */
-    align-items: center;   /* Alinha verticalmente no centro */
-    margin-top: 0px;
-    gap: 10px;             /* Cria um espaço entre a imagem e o texto */
-    text-decoration: none; /* Remove o sublinhado do link */
-    color: white;          /* Define a cor do texto */
-    
+    flex-direction: column;
+    padding: 20px;
+    border-right: 4px solid #4a3319;
+    box-sizing: border-box;
+    min-height: 100vh; /* Garante que ela vá até o final da tela */
 }
 
-.logo img {
-    width: 40px;           /* Defina um tamanho fixo para a estrela */
-    height: auto;
-    cursor: url('../images/cursor-botao.png'), auto;
+.profile-section {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #543920;
+    margin-bottom: 20px;
 }
 
-h1{
-     font-family: "Press Start 2P", system-ui;
-    font-size: 12px;
-    cursor: url('../images/cursor-botao.png'), auto;
+.avatar-border {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px;
+    border: 3px solid #ffcc00;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
 }
 
+.avatar-border img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
+.profile-section h3, span {
+    margin: 5px 0;
+    font-family: 'VT323', monospace;
+    font-size: 1.8rem;
+    color: #fb5902;
+    letter-spacing: 1px;
+}
 
-.navbar a {
-    margin-top: 5px;
+.user-title {
+    font-size: 0.85rem;
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* Navegação do Menu */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    color: #fff;
     text-decoration: none;
-    margin: 0 1rem;
-    font-size: 10px;
-    color: white;
-    cursor: url('../images/cursor-botao.png'), auto;
-    border: 2px solid transparent; 
-    padding: 0.5rem; 
-    transition: border-color 0.2s; 
-    font-family: "Press Start 2P", system-ui;
-
+    padding: 12px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, color 0.3s;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif; /* Melhora a leitura dos itens de menu */
 }
 
-.navbar a img {
-    margin-right: 14px; /* Adiciona espaço apenas à direita da imagem */
+.menu-item:hover, 
+.menu-item.active {
+    background-color: #ffcc00;
+    color: #4a3319;
+    font-weight: 600;
 }
 
-.navbar a:hover {
-    border-color: rgb(255, 255, 255); /* Apenas muda a cor, o tamanho já existe */
+.menu-item.logout:hover {
+    background-color: #cc3333;
+    color: #fff;
 }
 
 /* --- Classes Utilitárias do HTML --- */
@@ -94,6 +114,7 @@ h1{
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 100%;
 }
 
 .padding-8 {
@@ -109,17 +130,17 @@ h1{
     font-weight: 700;
 }
 
-
 #jogo {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f3d19a; /* Fundo bege clássico dos menus do jogo */
+    flex-direction: column; /* Faz com que perguntas e respostas fiquem empilhadas na vertical */
+    background-color: #f3d19a; /* Fundo beige clássico dos menus do jogo */
     border: 4px solid #7a4312;   /* Borda de madeira */
     border-radius: 8px;
     box-shadow: 0 8px 0px #3d1f05, 0 15px 20px rgba(0,0,0,0.5);
     padding: 24px;
     margin-top: 20px;
+    width: 100%;
+    max-width: 550px;
 }
 
 /* --- Elementos de Texto do Quiz --- */
@@ -128,8 +149,7 @@ h1{
     color: #5c320d;
     border-bottom: 2px dashed #b0814b;
     padding-bottom: 12px;
-        font-family: 'Poppins', sans-serif;
-
+    font-family: 'Poppins', sans-serif;
 }
 
 #perguntaDaQuestaoAtual {
@@ -137,13 +157,11 @@ h1{
     color: #2b1403;
     line-height: 1.4;
     margin: 10px 0;
-        font-family: 'Poppins', sans-serif;
-
+    font-family: 'Poppins', sans-serif;
 }
 
 #infoAlternativas {
-            font-family: 'Poppins', sans-serif;
-
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
     color: #7a4a21;
 }
@@ -157,8 +175,7 @@ h1{
     border-radius: 6px;
     padding: 12px;
     transition: all 0.2s ease;
-            font-family: 'Poppins', sans-serif;
-
+    font-family: 'Poppins', sans-serif;
 }
 
 #opcoes span:hover {
@@ -169,19 +186,21 @@ h1{
 
 #opcoes input[type="radio"] {
     margin-right: 12px;
-    accent-color: #7a4312; /* Customiza a cor da bolinha do radio */
+    accent-color: #7a4312; 
     width: 18px;
     height: 18px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 #opcoes label {
-        font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 15px;
     color: #3d1f05;
     font-weight: 500;
     width: 100%;
     display: inline-block;
+    cursor: pointer;
 }
 
 /* --- Botões de Ação --- */
@@ -190,13 +209,14 @@ button {
     font-size: 16px;
     font-weight: bold;
     color: #ffffff;
-    background-color: #0077c7; /* Azul padrão */
+    background-color: #0077c7; 
     border: 3px solid #004475;
     border-radius: 6px;
     padding: 12px 20px;
     text-transform: uppercase;
     box-shadow: 0 4px 0 #002d4e;
     transition: all 0.1s ease;
+    cursor: pointer;
 }
 
 button:active:not(:disabled) {
@@ -209,6 +229,7 @@ button:disabled {
     border-color: #6e6e6e !important;
     box-shadow: 0 4px 0 #474747 !important;
     opacity: 0.6;
+    cursor: not-allowed;
 }
 
 /* Botão Iniciar customizado */
@@ -246,12 +267,37 @@ button:disabled {
     box-shadow: 0 4px 0 #4a148c;
     margin-top: 0px;
 }
-#btnTentarNovamente:hover:not(:disabled) { background-color: #ba68c8; }
-
-#div_mensagem{
-    background-color: #f3d19a;
-    padding: 15px;
-    margin: 20px;
+#btnTentarNovamente:hover:not(:disabled) { 
+    background-color: #ba68c8; 
 }
 
+.main-content {
+    display: flex;
+    flex-direction: row;       /* Garante que os elementos fiquem lado a lado */
+    align-items: center;   /* Alinha os elementos pelo topo */
+    gap: 20px;                 /* Cria um espaçamento entre o jogo e o resultado */
+    padding: 20px;
+    width: 100%;
+}
 
+/* Ajustes na sua div de mensagem */
+#div_mensagem {
+    display: none;
+    font-size: 15px;
+    background-color: #f3d19a;
+    border: 4px solid #7a4312;
+    border-radius: 8px;
+    padding: 15px;
+    font-family: 'Poppins', sans-serif;
+    color: #160c02;
+    width: 100%;
+    max-width: 350px;          /* Reduzido um pouco para não esmagar o jogo em telas menores */
+    text-align: center;        /* Alterado para 'center' para o resultado do morador ficar bonito */
+}
+
+#div_mensagem p{
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}

@@ -21,7 +21,7 @@
 
             <nav class="sidebar-menu">
                 <a href="#" class="menu-item active">📊 Visão Geral</a>
-                <a href="../quiz.html" class="menu-item">🎮 Refazer Quiz</a>
+                <a href="../quiz.html" class="menu-item">🎮Quiz</a>
                 <a href="#" class="menu-item logout" onclick="limparSessao()">🚪 Sair</a>
             </nav>
         </aside>
@@ -38,7 +38,7 @@
                         <h3
                             style="margin: 0; font-size: 0.9rem; text-transform: uppercase; color: #8c6d53; letter-spacing: 0.5px;">
                             Total de Quizzes Realizados</h3>
-                        <p id="total-quizzes"
+                        <p id="total-quiz"
                             style="margin: 5px 0 0 0; font-size: 1.8rem; font-weight: 600; color: #704c2d;">...</p>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                 clearTimeout(proximaAtualizacao);
             }
 
-            fetch(`/medidas/votos-quiz`, { cache: 'no-store' }).then(function (response) {
+            fetch(`/medidas/buscarVotosGlobais`, { cache: 'no-store' }).then(function (response) {
                 if (response.ok) {
                     response.json().then(function (resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -101,7 +101,7 @@
             // Estruturas vazias que serão populadas dinamicamente com o resultado do Banco de Dados
             let labels = [];
             let dadosVotos = [];
-            let totalQuizzesGeral = 0;
+            let totalQuizzesGeral = resposta[0].total_quiz;
 
             console.log('----------------------------------------------');
             console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":');
@@ -110,13 +110,12 @@
             // Inserindo valores recebidos em estrutura para plotar o gráfico
             for (let i = 0; i < resposta.length; i++) {
                 let registro = resposta[i];
-                labels.push(registro.nome_personagem);
-                dadosVotos.push(registro.votos);
-                totalQuizzesGeral += Number(registro.votos); // Acumula para a métrica totalizadora
+                labels.push(registro.personagem);
+                dadosVotos.push(registro.personagem_id);
             }
-
+        
             // Atualiza o KPI de totalizador de quizzes na página
-            document.getElementById("total-quizzes").innerHTML = totalQuizzesGeral;
+            document.getElementById("total-quiz").innerHTML = totalQuizzesGeral;
 
             const ctx = document.getElementById('quizChart').getContext('2d');
 
